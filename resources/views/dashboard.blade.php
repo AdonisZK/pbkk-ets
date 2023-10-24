@@ -34,7 +34,7 @@
                 </li>
             </ul>
             <div class="flex justify-between">
-                <h5 class="mb text-lg font-medium text-gray-500 dark:text-gray-400 float-left">Minus: {{ $form->condition }}</h5>
+                <h5 class="mb text-lg font-medium text-gray-500 dark:text-gray-400 float-left">Condition: {{ $form->condition }}</h5>
             </div>
             <div class="flex justify-between">
                 <h5 class="mb text-lg font-medium text-gray-500 dark:text-gray-400 float-left">Minus: {{ $form->minus }}</h5>
@@ -51,6 +51,7 @@
 
         </div>
         @endforeach
+      
     </div>
 
 </x-app-layout>

@@ -7,6 +7,9 @@ use App\Models\user;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\Category;
+use App\Models\Item_Condition;
+
 class FormController extends Controller
 {
     public function store(Request $request)
@@ -40,6 +43,12 @@ class FormController extends Controller
         $form->user_id = Auth::user()->id;
         $form->save();
         // }
+        if ($form) {
+            session()->flash('success', 'Form submitted successfully!');
+        } else {
+            session()->flash('error', 'Failed to submit the form. Please try again.');
+        }
+
         return redirect('/dashboard');
 
         // return back()->with('success', 'Form submitted successfully!');  
@@ -86,6 +95,8 @@ class FormController extends Controller
      */
     public function edit($id)
     {
+        $categories = Category::all();
+        $conditions = Item_Condition::all();
         $form = Form::find($id);
 
         if (!$form) {
@@ -96,7 +107,7 @@ class FormController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        return view('edit', compact('form'));
+        return view('edit', compact('form', 'categories', 'conditions'));
     }
 
     public function destroy($id)
@@ -113,7 +124,8 @@ class FormController extends Controller
         $form->description = $request->description;
         $form->minus = $request->minus;
         $form->quantity = $request->quantity;
-        $form->image = $request->image;
+        $form->condition = $request->condition;
+        $form->category = $request->category;
         $form->save();
         return redirect('/listing');
     }
